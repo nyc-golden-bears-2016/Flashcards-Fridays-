@@ -1,0 +1,28 @@
+<h1>Registration</h1>
+       <% if @errors %>
+         <ul>
+         <% @errors.each do |error| %>
+           <li><%= error %></li><br>
+         <% end %>
+         </ul>
+       <%  end %>
+   <form action="/users" method="post">
+   <div>
+     Username:
+     <input type="text" name="user[username]">
+   </div>
+   <br>
+   <div>
+     Password:
+     <input type="password" name="user[password]">
+   </div>
+   <br><br>
+   <input type="submit" value="REGISTER">
+ </form>
+ <br>
+ <br>
+ <li>I need to <a href='/sessions/new'> login</a>.</li>
+ <% if logged_in? %>
+ <li>I'm already logged in! I want my <a href='/users/<%=current_user.id%>'>stats</a>.</li>
+ </ul>
+ <% end %>
