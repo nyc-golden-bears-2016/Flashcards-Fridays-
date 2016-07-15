@@ -4,6 +4,5 @@ class Guess < ActiveRecord::Base
 
   def is_correct?
     self.correctness
-
   end
 end

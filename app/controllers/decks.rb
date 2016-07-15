@@ -6,11 +6,10 @@ get '/decks/start/:id' do
 end
 get '/decks/:id' do
   @question = Card.all[session[:counter]].question
-
   erb :'decks/show'
 end
 
-put '/decks' do
+put '/rounds' do
   guess = Guess.create(Round.find)
   answer = params[:answer]
   if Card.all[session[:counter]].answer == answer
@@ -24,6 +23,6 @@ put '/decks' do
   if Guess.all.where(correctness: true).length == Card.all.length
     redirect '/user/show'
   else
-    redirect "/decks/#{}
+    redirect "/decks/#{}"
   end
 end
