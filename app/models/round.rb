@@ -6,6 +6,6 @@ class Round < ActiveRecord::Base
 
 
   def next_question
-    self.deck_id.
+    self.deck_id
   end
 end
