@@ -1,20 +1,21 @@
-<h1>Welcome,<%=@user.username %>!</h1>
-<p>Decks you've created:</p>
-<ul><% @user.rounds.each do |round|%>
-      <% rounds.decks.each do |deck|%>
-        <li><%= deck.subject %></li>
+<h1><%=@user.username %>!</h1>
+<p>Rounds and Stats</p>
+<ul>
+  <% @user.rounds.each do |round|%>
+      <%=rounds.deck.subject %>
+      <%=rounds.deck.subject %>
         <!-- create instance variable from helper method that calculates number of guesses and number of currect guesses during first round -->
+      <% end %>
 </ul>
-  <% end %>
-<% end %>
-<p>Decks you've created:</p>
+
+<p>Decks <%=@user.username %> created:</p>
 <ul><% @user.decks.each do |deck|%>
-<li><strong><%= deck.subject %></strong></li>
+<li><a href="/decks/<%= deck.id %>"><strong><%= deck.subject %></strong></a></li>
 </ul>
 <%if logged_in? && deck_creator %>
 <ul>
   <li> <a href="/decks/<%= deck.id %>/edit">edit</a></li>
-  <li><form method="post" action="/decks/<%= deck.id %>" class="inline">
+  <li><form method="post" action="/decks/<%= deck.id %>">
       <input type="hidden" name="_method" value="delete">
       <input type="submit" value="delete">
     </form></li>

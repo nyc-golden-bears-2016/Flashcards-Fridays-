@@ -1,4 +1,3 @@
-
 get '/decks/start/:id' do
   Round.create(user_id: current_user.id, deck_id: params[:id])
   session[:counter] = 0
