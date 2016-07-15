@@ -9,13 +9,11 @@ helpers do
   end
 
   def deck_creator?
-    if Deck.find(params[:d_id]).creator == current_user
+    if Deck.find_by(creator_id: current_user).creator == current_user
       true
     else
       false
     end
   end
-
-
 
 end

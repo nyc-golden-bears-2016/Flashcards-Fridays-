@@ -1,12 +1,5 @@
 <div class="container">
   <h1>Log in to your account to continue...</h1>
-    <% if @errors %>
-      <ul>
-      <% @errors.each do |error| %>
-        <li><%= error %></li><br>
-      <% end %>
-      </ul>
-    <%  end %>
   <form action="/sessions" method="post">
       <div>
         Username:

@@ -1,6 +1,8 @@
 
+
 get '/rounds/start/:id' do
   round = Round.create(user_id: current_user.id, deck_id: params[:id])
+
   session[:counter] = 0
   redirect "/rounds/#{round.id}"
 end
