@@ -3,6 +3,7 @@ class CreateDecks < ActiveRecord::Migration
 
     create_table :decks do |t|
       t.string :subject
+      t.integer :creator_id, default: 0
 
       t.timestamps
     end

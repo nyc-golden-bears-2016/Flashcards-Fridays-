@@ -14,6 +14,10 @@ gem 'rake'
 
 gem 'shotgun'
 
+gem 'pry-byebug'
+
+gem 'bcrypt'
+
 group :test do
   gem 'shoulda-matchers'
   gem 'rack-test'

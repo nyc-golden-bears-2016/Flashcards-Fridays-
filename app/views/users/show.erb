@@ -1,0 +1,15 @@
+<h1>Welcome,<%=@user.username %>!</h1>
+
+<p><% @user.decks.each do |deck|%></p>
+<h1><%= deck.subject %></h1>
+<p><%= entry.body %></p>
+<%if logged_in? && author %>
+<ul>
+  <li> <a href="/decks/<%= deck.id %>/edit">edit</a></li>
+  <li><form method="post" action="/decks/<%= deck.id %>" class="inline">
+      <input type="hidden" name="_method" value="delete">
+      <input type="submit" value="delete">
+    </form></li>
+</ul>
+  <% end %>
+<% end %>
