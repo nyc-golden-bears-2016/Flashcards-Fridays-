@@ -1,12 +1,11 @@
 class CreateGuesses < ActiveRecord::Migration
   def change
-
     create_table :guesses do |t|
-      t.integer :card_id
-      t.integer :round_id
-      t.boolean :correctness
+      t.integer :card_id, foreign_key: true, index: true
+      t.integer :round_id, foreign_key: true, index: true
+      t.boolean :correctness, default: false
 
-      t.timestamps
+      t.timestamps(null: false)
     end
   end
 end

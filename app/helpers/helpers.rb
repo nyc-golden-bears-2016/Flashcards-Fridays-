@@ -8,12 +8,12 @@ helpers do
     !!current_user
   end
 
-  def deck_creator
-    if Deck.find(params[:creator_id]).creator == current_user
+  def deck_creator?
+    if Deck.find(params[:d_id]).creator == current_user
       true
     else
       false
     end
   end
-
+  
 end
