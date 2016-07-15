@@ -5,4 +5,8 @@ class Round < ActiveRecord::Base
   has_many :cards, through: :decks
   has_many :guesses
 
+  def next_question
+    self.deck_id.
+  end
+
 end

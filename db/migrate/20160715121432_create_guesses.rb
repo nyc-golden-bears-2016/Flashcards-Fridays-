@@ -4,7 +4,7 @@ class CreateGuesses < ActiveRecord::Migration
     create_table :guesses do |t|
       t.integer :card_id
       t.integer :round_id
-      t.boolean :correctness
+      t.boolean :correctness, default: false
 
       t.timestamps
     end
