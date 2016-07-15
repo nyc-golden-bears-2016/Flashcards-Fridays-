@@ -5,7 +5,7 @@ class Round < ActiveRecord::Base
   has_many :guesses
 
 
-  def next_question
-    self.deck_id.
-  end
+  # def next_question
+  #   self.deck_id.
+  # end
 end

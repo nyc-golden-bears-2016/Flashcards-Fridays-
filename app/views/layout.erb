@@ -9,6 +9,13 @@
   <title></title>
 </head>
 <body>
+  <% if @errors %>
+      <ul>
+      <% @errors.each do |error| %>
+        <li><%= error %></li><br>
+      <% end %>
+      </ul>
+    <%  end %>
   <%if logged_in?%>
     <a href="/decks/new">Create a Deck</a><br>
     <a href="/users/<%=session[:user_id]%>">Home Page</a><br>
