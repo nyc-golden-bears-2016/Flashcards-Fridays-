@@ -9,16 +9,21 @@
 </ul>
 
 <p>Decks <%=@user.username %> created:</p>
+
+
+
+
 <ul><% @user.decks.each do |deck|%>
 <li><a href="/decks/<%= deck.id %>"><strong><%= deck.subject %></strong></a></li>
 </ul>
-<%if logged_in? && deck_creator %>
+<%if logged_in? && deck_creator? %>
 <ul>
   <li> <a href="/decks/<%= deck.id %>/edit">edit</a></li>
   <li><form method="post" action="/decks/<%= deck.id %>">
       <input type="hidden" name="_method" value="delete">
       <input type="submit" value="delete">
     </form></li>
+
 </ul>
   <% end %>
 <% end %>
