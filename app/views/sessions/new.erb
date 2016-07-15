@@ -1,0 +1,27 @@
+<div class="container">
+  <h1>Log in to your account to continue...</h1>
+    <% if @errors %>
+      <ul>
+      <% @errors.each do |error| %>
+        <li><%= error %></li><br>
+      <% end %>
+      </ul>
+    <%  end %>
+  <form action="/sessions" method="post">
+      <div>
+        Username:
+        <input type="text" name="username">
+      </div>
+      <br>
+      <div>
+        Password:
+        <input type="password" name="password">
+      </div>
+      <br><br>
+    <input type="submit" value="Log In">
+  </form>
+  <br><br>
+  <ul>
+  <li>I need to <a href='/users/new'> register</a>.</li>
+  </ul>
+</div>
