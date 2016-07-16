@@ -18,7 +18,7 @@ delete '/sessions' do
   redirect '/'
 end
 
-get '/sessions/guest/new' do
+get '/sessions/new/guest' do
   user = User.create(username: "GUEST" + SecureRandom.hex(4), password: SecureRandom.hex(10))
   session[:user_id] = user.id
   redirect '/'

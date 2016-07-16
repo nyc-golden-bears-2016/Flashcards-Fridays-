@@ -1,9 +1,9 @@
 <h1><%=@user.username %>!</h1>
 <p>Rounds and Stats</p>
 <ul>
-  <% @user.rounds.each do |round|%>
-      <%=rounds.deck.subject %>
-      <%=rounds.deck.subject %>
+  <% @rounds.each do |round|%>
+      <% deck_id = round.deck_id %>
+      <%= Deck.all.where(deck_id: deck_id) %>
         <!-- create instance variable from helper method that calculates number of guesses and number of currect guesses during first round -->
       <% end %>
 </ul>
@@ -13,12 +13,12 @@
 
 
 
-<ul><% @user.decks.each do |deck|%>
-<li><a href="/decks/<%= deck.id %>"><strong><%= deck.subject %></strong></a></li>
+<ul><% @decks.each do |deck|%>
+<li><a href="/rounds/start/<%= deck.id %>"><strong><%= deck.subject %></strong></a></li>
 </ul>
 <%if logged_in? && deck_creator? %>
 <ul>
-  <li> <a href="/decks/<%= deck.id %>/edit">edit</a></li>
+  <li> <a href="/decks<%= deck.id %>/edit">edit</a></li>
   <li><form method="post" action="/decks/<%= deck.id %>">
       <input type="hidden" name="_method" value="delete">
       <input type="submit" value="delete">

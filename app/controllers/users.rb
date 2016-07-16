@@ -15,5 +15,8 @@ end
 
 get '/users/:id' do
   @user = User.find(params[:id])
+  @rounds = Round.all.where(user_id: @user.id)
+  @decks = Deck.all.where(creator_id: @user.id)
+  # binding.pry
   erb :'/users/show'
 end

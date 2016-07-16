@@ -1,3 +1,7 @@
+get '/decks/new' do
+  "MAKE A NEW DECK!!!!"
+
+end
 
 
 get '/rounds/start/:id' do
@@ -9,15 +13,20 @@ end
 
 get '/rounds/:id' do
   @round = Round.find(params[:id])
-  @question = Card.all.where(deck_id: @round.deck_id)[session[:counter]].question
+  cards = Card.all.where(deck_id: @round.deck_id)
+  @question = cards[session[:counter]%cards.length].question
   erb :'decks/show'
 end
 
 put '/rounds' do
+
   round = Round.find(params[:round])
   cards = Card.where(deck_id: round.deck_id)
   answer = params[:answer]
   card = cards[session[:counter] % cards.length]
+  if Guess.all.where(round_id: round.id)[0].nil?
+    Guess.create_blank_guesses(cards.length, round.id, cards)
+  end
   guess = Guess.create(round_id: round.id, card_id: card.id)
   if card.answer == answer
     guess.correctness = true
@@ -27,17 +36,18 @@ put '/rounds' do
     guess.save
   end
 
+  if Guess.all.where(round_id: round.id, correctness: true).length >= cards.length
+    redirect "/users/#{round.user_id}"
+  end
+
   begin
     if Guess.find_by(card_id: card.id, round_id: round.id).correctness
-      if Guess.all.where(round_id: round.id, correctness: true).length == cards.length
-        redirect "/users/show"
-      end
+      binding.pry
       session[:counter] += 1
       card = cards[session[:counter] % cards.length]
     else
       session[:counter] += 1
       redirect "/rounds/#{round.id}"
     end
-  end while (Guess.find_by(card_id: card.id, round_id: round.id).correctness) && Guess.find_by(card_id: card.id, round_id: round.id).correctness
-  redirect "/rounds/#{round.id}"
+  end while 1 == 1
 end
