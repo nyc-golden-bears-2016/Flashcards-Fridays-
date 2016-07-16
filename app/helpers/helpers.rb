@@ -16,4 +16,8 @@ helpers do
     end
   end
 
+  def guest_user
+    !!/\A(GUEST).{8}/.match(current_user.username)
+  end
+
 end

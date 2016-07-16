@@ -2,51 +2,32 @@ get '/decks/new' do
   erb :'decks/new'
 end
 
-
-get '/rounds/start/:id' do
-  round = Round.create(user_id: current_user.id, deck_id: params[:id])
-
-  session[:counter] = 0
-  redirect "/rounds/#{round.id}"
+post '/decks' do
+ halt(401, "You must be logged in to a valid account in order to create a deck.") unless logged_in? && !guest_user
+ deck = Deck.new(params[:deck].merge(creator: current_user))
+ if deck.save
+   card = Card.new(params[:card].merge(deck_id: deck.id))
+   if card.save
+     redirect "/decks/#{deck.id}"
+   else
+     @errors = card.errors.full_messages
+     erb :'/decks/new'
+   end
+ else
+    @errors = card.errors.full_messages + deck.errors.full_messages
+    erb :'/decks/new'
+  end
 end
 
-get '/rounds/:id' do
-  @round = Round.find(params[:id])
-  cards = Card.all.where(deck_id: @round.deck_id)
-  @question = cards[session[:counter]%cards.length].question
-  erb :'decks/show'
+get '/decks/:id' do
+  @deck = Deck.find(params[:id])
+  halt(401, "You did not create this deck.") unless logged_in? && !guest_user && deck_creator?
+  erb :'/decks/show'
 end
 
-put '/rounds' do
-
-  round = Round.find(params[:round])
-  cards = Card.where(deck_id: round.deck_id)
-  answer = params[:answer]
-  card = cards[session[:counter] % cards.length]
-  if Guess.all.where(round_id: round.id)[0].nil?
-    Guess.create_blank_guesses(cards.length, round.id, cards)
-  end
-  guess = Guess.create(round_id: round.id, card_id: card.id)
-  if card.answer == answer
-    guess.correctness = true
-    guess.save
-  else
-    guess.correctness = false
-    guess.save
-  end
-
-  if Guess.all.where(round_id: round.id, correctness: true).length >= cards.length
-    redirect "/users/#{round.user_id}"
-  end
-
-  begin
-    if Guess.find_by(card_id: card.id, round_id: round.id).correctness
-      binding.pry
-      session[:counter] += 1
-      card = cards[session[:counter] % cards.length]
-    else
-      session[:counter] += 1
-      redirect "/rounds/#{round.id}"
-    end
-  end while 1 == 1
+delete '/decks/:id' do
+  @deck = Deck.find(params[:id])
+  halt(401, "You did not create this deck.") unless logged_in? && !guest_user && deck_creator?
+  @deck.destroy
+  redirect "/users/#{current_user.id}"
 end

@@ -1,8 +1,30 @@
-<form method="post" action="/rounds">
-  <input type="hidden" name="_method" value="PUT">
-  <label for="question">Question:</label><br>
-  <p><%= @question %></p>
-  <input id="question_answer" name="answer" type="text"><br><br>
-  <input type="submit" value="Next" class="button">
-  <input type="hidden" name="round" value="<%= @round.id %>">
-</form>
+<h1><%=@deck.subject %>!</h1>
+<p><%=@deck.subject%> has <%=@deck.cards.length%> questions</p>
+<p>Created <%=@deck.created_at%></p><br>
+<form method="post" action="/decks/<%=@deck.id%>">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="Delete Deck">
+  </form>
+<br>
+<form method="post" action="/cards/<%=@deck.id%>">
+  <h3>Add A Card</h3>
+  <li><div>Question: <br><textarea type="text" name="card[question]"></textarea></div>
+  <div>Correct Answer: <br><textarea type="text" name="card[answer]"></textarea><div><br>
+    <input type="submit" value="Add to Deck"></li>
+  </form>
+<br><br>
+<h3>Current Cards</h3>
+<ul>
+  <% @deck.cards.each do |card|%>
+      <li><div>Question: <form method="post" action="/cards/<%=@deck.id%>">
+          <input type="hidden" name="_method" value="put">
+          <textarea type="text" placeholder="<%= card.question %>" name="card[question]"></textarea></div>
+          <div>Correct Answer: <br><textarea type="text" placeholder="<%= card.answer %>" name="card[answer]"></textarea></div>
+          <div><input type="submit" value="Submit Changes"></div>
+          <div><form method="post" action="/cards/<%=@deck.id%>">
+              <input type="hidden" name="_method" value="delete">
+              <input type="submit" value="Delete Card">
+          </div><br>
+        </form></li></ul>
+  <% end %>
+<br><br>
