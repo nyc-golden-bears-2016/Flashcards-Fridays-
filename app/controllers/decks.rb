@@ -1,6 +1,5 @@
 get '/decks/new' do
-  "MAKE A NEW DECK!!!!"
-
+  erb :'decks/new'
 end
 
 

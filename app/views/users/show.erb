@@ -1,12 +1,17 @@
 <h1><%=@user.username %>!</h1>
 <p>Rounds and Stats</p>
-<ul>
+<ol>
   <% @rounds.each do |round|%>
-      <% deck_id = round.deck_id %>
-      <%= Deck.all.where(deck_id: deck_id) %>
-        <!-- create instance variable from helper method that calculates number of guesses and number of currect guesses during first round -->
-      <% end %>
-</ul>
+    <% cards = Card.all.where(deck_id: round.deck_id) %>
+    <li>
+      <strong><%= Deck.find(round.deck_id).subject %></strong><br>
+      <p>total questions: <%= cards.length %></p>
+      <p> total guesses: <%= Guess.all.where(round_id: round.id).length  - cards.length %></p>
+    </li><br>
+
+    <!-- create instance variable from helper method that calculates number of guesses and number of currect guesses during first round -->
+  <% end %>
+</ol>
 
 <p>Decks <%=@user.username %> created:</p>
 
