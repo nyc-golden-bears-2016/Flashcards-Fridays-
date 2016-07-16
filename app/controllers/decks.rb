@@ -14,7 +14,7 @@ post '/decks' do
      erb :'/decks/new'
    end
  else
-    @errors = card.errors.full_messages + deck.errors.full_messages
+    @errors = deck.errors.full_messages
     erb :'/decks/new'
   end
 end

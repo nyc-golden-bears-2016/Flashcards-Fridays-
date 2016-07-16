@@ -34,7 +34,6 @@ put '/rounds' do
 
   begin
     if Guess.find_by(card_id: card.id, round_id: round.id).correctness
-      binding.pry
       session[:counter] += 1
       card = cards[session[:counter] % cards.length]
     else
