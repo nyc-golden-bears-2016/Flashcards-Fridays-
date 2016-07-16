@@ -8,7 +8,7 @@
   <ul>
     <%if logged_in?%>
       <% @decks.each do |deck| %>
-      <li><a href="/decks/<%= deck.id %>"><%=deck.subject%></a>: <%=deck.cards.length%> cards</li>
+      <li><a href="/rounds/start/<%= deck.id %>"><%=deck.subject%></a>: <%=deck.cards.length%> questions</li>
         <li>Created <%=deck.created_at%></li>
         <% end %>
     <% else %>

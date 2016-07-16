@@ -1,24 +1,29 @@
 <h1><%=@user.username %>!</h1>
 <p>Rounds and Stats</p>
-<ul>
-  <% @user.rounds.each do |round|%>
-      <%=rounds.deck.subject %>
-      <%=rounds.deck.subject %>
-        <!-- create instance variable from helper method that calculates number of guesses and number of currect guesses during first round -->
-      <% end %>
-</ul>
+<ol>
+  <% @rounds.each do |round|%>
+    <% cards = Card.all.where(deck_id: round.deck_id) %>
+    <li>
+      <strong><%= Deck.find(round.deck_id).subject %></strong><br>
+      <p>total questions: <%= cards.length %></p>
+      <p> total guesses: <%= Guess.all.where(round_id: round.id).length  - cards.length %></p>
+    </li><br>
+
+    <!-- create instance variable from helper method that calculates number of guesses and number of currect guesses during first round -->
+  <% end %>
+</ol>
 
 <p>Decks <%=@user.username %> created:</p>
 
 
 
 
-<ul><% @user.decks.each do |deck|%>
-<li><a href="/decks/<%= deck.id %>"><strong><%= deck.subject %></strong></a></li>
+<ul><% @decks.each do |deck|%>
+<li><a href="/rounds/start/<%= deck.id %>"><strong><%= deck.subject %></strong></a></li>
 </ul>
 <%if logged_in? && deck_creator? %>
 <ul>
-  <li> <a href="/decks/<%= deck.id %>/edit">edit</a></li>
+  <li> <a href="/decks<%= deck.id %>/edit">edit</a></li>
   <li><form method="post" action="/decks/<%= deck.id %>">
       <input type="hidden" name="_method" value="delete">
       <input type="submit" value="delete">
