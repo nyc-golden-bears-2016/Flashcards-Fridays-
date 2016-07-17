@@ -14,7 +14,7 @@
     <% else %>
     <a href="/users/new">Register</a><br>
     <a href="/sessions/new">Login</a><br>
-    <a href="/sessions/new/guest">Play as Guest</a><br>
+    <a href="/sessions/new/guest">Play as Guest</a><br><br><br>
     <% @decks.each do |deck| %>
       <li><%=deck.subject%></a>: <%=deck.cards.length%> cards</li>
         <li>Created <%=deck.created_at%></li>
