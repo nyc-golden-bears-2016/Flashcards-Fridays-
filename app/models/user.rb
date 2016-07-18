@@ -7,5 +7,4 @@ class User < ActiveRecord::Base
   has_many :cards, through: :decks
 
   validates :username, presence: true, uniqueness: true
-
 end
