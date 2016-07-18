@@ -1,3 +1,5 @@
+<h1 id="home_header">Flashcard Fridays!</h1>
+
 <% if @errors %>
   <ul>
   <% @errors.each do |error| %>
@@ -6,10 +8,11 @@
   </ul>
 <%  end %>
   <ul>
+  <div id="deck_display">
     <%if logged_in?%>
       <% @decks.each do |deck| %>
       <li><a href="/rounds/start/<%= deck.id %>"><%=deck.subject%></a>: <%=deck.cards.length%> questions</li>
-        <li>Created <%=deck.created_at%></li>
+        <li>Created <%=deck.created_at%></li><br>
         <% end %>
     <% else %>
     <a href="/users/new">Register</a><br>
@@ -17,7 +20,8 @@
     <a href="/sessions/new/guest">Play as Guest</a><br><br><br>
     <% @decks.each do |deck| %>
       <li><%=deck.subject%></a>: <%=deck.cards.length%> cards</li>
-        <li>Created <%=deck.created_at%></li>
+        <li>Created <%=deck.created_at%></li><br>
         <% end %>
     <% end %>
   </ul>
+  </div>

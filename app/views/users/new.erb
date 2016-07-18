@@ -1,14 +1,11 @@
+<div class="container">
 <h1>Registration</h1>
    <form action="/users" method="post">
-   <div>
      Username:
      <input type="text" name="user[username]">
-   </div>
    <br>
-   <div>
      Password:
      <input type="password" name="user[password]">
-   </div>
    <br><br>
    <input type="submit" value="REGISTER">
  </form>
@@ -19,3 +16,4 @@
  <li>I'm already logged in! I want my <a href='/users/<%=current_user.id%>'>page</a>.</li>
  </ul>
  <% end %>
+ </div>
