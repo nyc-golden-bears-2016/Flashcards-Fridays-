@@ -1,5 +1,6 @@
 <div id="deck_display">
 <h1><%=@user.username %>!</h1>
+<%if logged_in? && @user.rounds != []%>
 <p>Rounds and Stats</p>
 <ul>
   <% @rounds.each do |round|%>
@@ -8,8 +9,11 @@
       <li>Total Guesses: <%= round.guesses.length %></li>
   <% end %>
 </ul>
+<% else %>
+Stats will be shown here once you play through a deck!
+<% end %>
 
-<%if logged_in? && !guest_user%>
+<%if logged_in? && !guest_user && @user.decks != []%>
 
   <p>Decks <%=@user.username %> created:</p>
   <% @decks.each do |deck|%>

@@ -1,5 +1,5 @@
 <h1><%=@deck.subject %>!</h1>
-<p><%=@deck.subject%> has <%=@deck.cards.length%> questions</p>
+<p><%=@deck.subject%> has <%=@deck.cards.length%> question(s)</p>
 <p>Created <%=@deck.created_at%></p><br>
 <form method="post" action="/decks/<%=@deck.id%>">
     <input type="hidden" name="_method" value="delete">
@@ -16,12 +16,12 @@
 <h3>Current Cards</h3>
 <ul>
   <% @deck.cards.each do |card|%>
-      <li><div>Question: <form method="post" action="/cards/<%=@deck.id%>">
+      <li><div>Question: <form method="post" action="/cards/<%=card.id%>">
           <input type="hidden" name="_method" value="put">
-          <textarea type="text" placeholder="<%= card.question %>" name="card[question]"></textarea></div>
-          <div>Correct Answer: <br><textarea type="text" placeholder="<%= card.answer %>" name="card[answer]"></textarea></div>
-          <div><input type="submit" value="Submit Changes"></div>
-          <div><form method="post" action="/cards/<%=@deck.id%>">
+          <textarea type="text" name="question"><%= card.question %></textarea></div>
+          <div>Correct Answer: <br><textarea type="text" name="answer"><%= card.answer %></textarea></div>
+          <div><input type="submit" value="Submit Changes"></div></form>
+          <div><form method="post" action="/cards/<%=card.id%>">
               <input type="hidden" name="_method" value="delete">
               <input type="submit" value="Delete Card">
           </div><br>
